@@ -23,16 +23,6 @@ def send_msg(msg):
     # (future plans: wait for proper ui)
     #print(client.recv(2048).decode(FORMAT))
 
-# --------------------------------------------------------------------------------------------
-# tests
-'''input()
-send_msg("Hello World")
-input()
-send_msg("Hello everyone")
-input()
-send_msg(DISCONNECT_MESSAGE)'''
-
-# ------------------------------------------------------------------------------------------------
 
 def client_loop():
 
