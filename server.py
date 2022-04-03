@@ -10,25 +10,35 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
 def handle_client(conn, addr):
+    
     print(f"[NEW CONNECTION] {addr} connected.")
+    username = ""
 
     connected = True
     while connected:
         msg_length = conn.recv(HEADER).decode(FORMAT)
 
         if msg_length:
+
+            #message treatment
             msg_length = int(msg_length)
             msg = conn.recv(msg_length).decode(FORMAT)
 
-            if msg == DISCONNECT_MESSAGE:
-                connected = False
+            #collect username
+            username = msg.split(":")[0]
 
+            #show message
             print(f"{msg}")
+
+            #user desconnection
+            if msg.split(":")[1] == DISCONNECT_MESSAGE:
+                connected = False
+                print(f"User {username} has left the chat")
 
             #early way
             #print(f"[{addr}] {msg}")
 
-            # uncomment this line to server return the feedback: msg received
+            # uncomment the lin below to the server return the feedback: msg received to the client
             #conn.send("Msg received".encode(FORMAT))
 
     conn.close()
