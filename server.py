@@ -23,13 +23,24 @@ def handle_client(conn, addr):
             if msg == DISCONNECT_MESSAGE:
                 connected = False
 
-            print(f"[{addr}] {msg}")
-            conn.send("Msg received".encode(FORMAT))
+            print(f"{msg}")
 
-    
+            #early way
+            #print(f"[{addr}] {msg}")
+
+            # uncomment this line to server return the feedback: msg received
+            #conn.send("Msg received".encode(FORMAT))
+
     conn.close()
 
-   
+
+def braodcast_new_conexion():
+
+    '''Inform all actives clients when a new client connect'''
+
+    pass
+
+
 def start():
     server.listen()
     print(f"[LISTENING] Server is listening on {SERVER}")
@@ -37,7 +48,6 @@ def start():
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        #commented because thread/sockets are not closing upon client desconetion
         print(f"[ACTIVE CONNNECTIONS] {threading.active_count() - 1}")
 
 print("[STARTING] server is starting...")
